@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
 }
@@ -10,41 +7,101 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model User {
-    uid       String   @id
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String?
-    image     String?
-
-    credentials  Credentials?
-    authProvider AuthProvider?
+model Education {
+    id      Int       @id @default(autoincrement())
+    school  String
+    degree  String
+    start   DateTime
+    end     DateTime?
+    details String[]
 }
 
-model Credentials {
-    uid          String   @id
-    email        String   @unique
-    user         User     @relation(fields: [uid], references: [uid])
-    passwordHash String
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
+model Experience {
+    id      Int       @id @default(autoincrement())
+    title   String
+    company String
+    start   DateTime
+    end     DateTime?
+    details String[]
 }
 
-model AuthProvider {
-    uid String @id
+model Project {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    date        DateTime
+    title       String
+    description String
+    images      String[]
+    github      String?
+    linesOfCode Int
+    Tags        Tag[]
 
-    type AuthProviderType
-    user User             @relation(fields: [uid], references: [uid])
+    Technologies Technology[]
+    Urls         Url[]
 }
 
-enum AuthProviderType {
-    GOOGLE
-    CREDENTIALS
+model Social {
+    id          Int     @id @default(autoincrement())
+    title       String
+    description String?
+    url         String
 }
 
-model Item {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String
+model Technology {
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    description String
+    Projects    Project[]
+}
+
+model Url {
+    id          Int      @id @default(autoincrement())
+    title       String
+    description String
+    url         String
+    projectId   Int?
+    Project     Project? @relation(fields: [projectId], references: [id])
+}
+
+model FAQ {
+    id       Int    @id @default(autoincrement())
+    question String
+    answer   String
+}
+
+model Strategy {
+    id          Int              @id @default(autoincrement())
+    title       String
+    description String
+    details     StrategyDetail[]
+}
+
+model StrategyDetail {
+    id          Int        @id @default(autoincrement())
+    strategyId  Int
+    title       String
+    description String
+    resources   Resource[]
+    Strategy    Strategy   @relation(fields: [strategyId], references: [id])
+}
+
+model Resource {
+    id Int @id @default(autoincrement())
+
+    type  String
+    title String
+    url   String
+
+    StrategyDetail   StrategyDetail? @relation(fields: [strategyDetailId], references: [id])
+    strategyDetailId Int?
+}
+
+enum Tag {
+    FRONTEND
+    BACKEND
+    FULLSTACK
+    DAPP
+    AI
+    MOBILE_APP
+    OTHER
 }

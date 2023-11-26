@@ -2,13 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  image: String
-  uid: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  credentials: Credential!
+type Education {
+  end: DateTime
+  id: Int!
+  school: String!
+  degree: String!
+  start: DateTime!
+  details: [String!]!
 }
 
 """
@@ -16,57 +16,135 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type AuthProvider {
-  type: AuthProviderType!
-  uid: String!
+type Experience {
+  end: DateTime
+  id: Int!
+  title: String!
+  company: String!
+  start: DateTime!
+  details: [String!]!
 }
 
-enum AuthProviderType {
-  GOOGLE
-  CREDENTIALS
-}
-
-type Credential {
-  uid: String!
-  email: String!
-  passwordHash: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Item {
+type Project {
+  Tags: [Tag!]!
   id: Int!
   createdAt: DateTime!
-  updatedAt: DateTime!
+  date: DateTime!
+  title: String!
+  description: String!
+  images: [String!]!
+  github: String!
+  linesOfCode: Int!
+}
+
+enum Tag {
+  FRONTEND
+  BACKEND
+  FULLSTACK
+  DAPP
+  AI
+  MOBILE_APP
+  OTHER
+}
+
+type Social {
+  description: String
+  id: Int!
+  title: String!
+  url: String!
+}
+
+type Technology {
+  id: Int!
   name: String!
+  description: String!
+}
+
+type Url {
+  projectId: Int
+  id: Int!
+  title: String!
+  description: String!
+  url: String!
+}
+
+type Faq {
+  id: Int!
+  question: String!
+  answer: String!
+}
+
+type Strategy {
+  id: Int!
+  title: String!
+  description: String!
+}
+
+type StrategyDetail {
+  id: Int!
+  strategyId: Int!
+  title: String!
+  description: String!
+}
+
+type Resource {
+  strategyDetailId: Int
+  id: Int!
+  type: String!
+  title: String!
+  url: String!
 }
 
 type Query {
-  users(distinct: [UserScalarFieldEnum!], where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int): [User!]!
-  getCredentials(email: String!): User
-  getAuthProvider(uid: String!): AuthProvider
-  user(where: UserWhereUniqueInput): User!
-  items(distinct: [ItemScalarFieldEnum!], where: ItemWhereInput, orderBy: [ItemOrderByWithRelationInput!], cursor: ItemWhereUniqueInput, take: Int, skip: Int): [Item!]!
-  item(where: ItemWhereUniqueInput!): Item!
+  educations(distinct: [EducationScalarFieldEnum!], where: EducationWhereInput, orderBy: [EducationOrderByWithRelationInput!], cursor: EducationWhereUniqueInput, take: Int, skip: Int): [Education!]!
+  education(where: EducationWhereUniqueInput!): Education!
+  experiences(distinct: [ExperienceScalarFieldEnum!], where: ExperienceWhereInput, orderBy: [ExperienceOrderByWithRelationInput!], cursor: ExperienceWhereUniqueInput, take: Int, skip: Int): [Experience!]!
+  experience(where: ExperienceWhereUniqueInput!): Experience!
+  projects(distinct: [ProjectScalarFieldEnum!], where: ProjectWhereInput, orderBy: [ProjectOrderByWithRelationInput!], cursor: ProjectWhereUniqueInput, take: Int, skip: Int): [Project!]!
+  project(where: ProjectWhereUniqueInput!): Project!
+  socials(distinct: [SocialScalarFieldEnum!], where: SocialWhereInput, orderBy: [SocialOrderByWithRelationInput!], cursor: SocialWhereUniqueInput, take: Int, skip: Int): [Social!]!
+  social(where: SocialWhereUniqueInput!): Social!
+  technologies(distinct: [TechnologyScalarFieldEnum!], where: TechnologyWhereInput, orderBy: [TechnologyOrderByWithRelationInput!], cursor: TechnologyWhereUniqueInput, take: Int, skip: Int): [Technology!]!
+  technology(where: TechnologyWhereUniqueInput!): Technology!
+  urls(distinct: [UrlScalarFieldEnum!], where: UrlWhereInput, orderBy: [UrlOrderByWithRelationInput!], cursor: UrlWhereUniqueInput, take: Int, skip: Int): [Url!]!
+  url(where: UrlWhereUniqueInput!): Url!
+  faqs(distinct: [FaqScalarFieldEnum!], where: FaqWhereInput, orderBy: [FaqOrderByWithRelationInput!], cursor: FaqWhereUniqueInput, take: Int, skip: Int): [Faq!]!
+  faq(where: FaqWhereUniqueInput!): Faq!
+  strategies(distinct: [StrategyScalarFieldEnum!], where: StrategyWhereInput, orderBy: [StrategyOrderByWithRelationInput!], cursor: StrategyWhereUniqueInput, take: Int, skip: Int): [Strategy!]!
+  strategy(where: StrategyWhereUniqueInput!): Strategy!
+  strategyDetails(distinct: [StrategyDetailScalarFieldEnum!], where: StrategyDetailWhereInput, orderBy: [StrategyDetailOrderByWithRelationInput!], cursor: StrategyDetailWhereUniqueInput, take: Int, skip: Int): [StrategyDetail!]!
+  strategyDetail(where: StrategyDetailWhereUniqueInput!): StrategyDetail!
+  resources(distinct: [ResourceScalarFieldEnum!], where: ResourceWhereInput, orderBy: [ResourceOrderByWithRelationInput!], cursor: ResourceWhereUniqueInput, take: Int, skip: Int): [Resource!]!
+  resource(where: ResourceWhereUniqueInput!): Resource!
 }
 
-enum UserScalarFieldEnum {
-  uid
-  createdAt
-  updatedAt
-  name
-  image
+enum EducationScalarFieldEnum {
+  id
+  school
+  degree
+  start
+  end
+  details
 }
 
-input UserWhereInput {
-  uid: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  name: StringFilter
-  image: StringFilter
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+input EducationWhereInput {
+  id: IntFilter
+  school: StringFilter
+  degree: StringFilter
+  start: DateTimeFilter
+  end: DateTimeFilter
+  details: StringListFilter
+  AND: [EducationWhereInput!]
+  OR: [EducationWhereInput!]
+  NOT: [EducationWhereInput!]
+}
+
+input IntFilter {
+  equals: Int
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
 }
 
 input StringFilter {
@@ -99,12 +177,21 @@ input DateTimeFilter {
   gte: String
 }
 
-input UserOrderByWithRelationInput {
-  uid: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  name: SortOrder
-  image: SortOrder
+input StringListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
+input EducationOrderByWithRelationInput {
+  id: SortOrder
+  school: SortOrder
+  degree: SortOrder
+  start: SortOrder
+  end: SortOrder
+  details: SortOrder
 }
 
 enum SortOrder {
@@ -112,81 +199,542 @@ enum SortOrder {
   desc
 }
 
-input UserWhereUniqueInput {
-  uid: String!
+input EducationWhereUniqueInput {
+  id: Int!
 }
 
-enum ItemScalarFieldEnum {
+enum ExperienceScalarFieldEnum {
+  id
+  title
+  company
+  start
+  end
+  details
+}
+
+input ExperienceWhereInput {
+  id: IntFilter
+  title: StringFilter
+  company: StringFilter
+  start: DateTimeFilter
+  end: DateTimeFilter
+  details: StringListFilter
+  AND: [ExperienceWhereInput!]
+  OR: [ExperienceWhereInput!]
+  NOT: [ExperienceWhereInput!]
+}
+
+input ExperienceOrderByWithRelationInput {
+  id: SortOrder
+  title: SortOrder
+  company: SortOrder
+  start: SortOrder
+  end: SortOrder
+  details: SortOrder
+}
+
+input ExperienceWhereUniqueInput {
+  id: Int!
+}
+
+enum ProjectScalarFieldEnum {
   id
   createdAt
-  updatedAt
-  name
+  date
+  title
+  description
+  images
+  github
+  linesOfCode
+  Tags
 }
 
-input ItemWhereInput {
+input ProjectWhereInput {
+  Tags: EnumTagListFilter
   id: IntFilter
   createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
+  date: DateTimeFilter
+  title: StringFilter
+  description: StringFilter
+  images: StringListFilter
+  github: StringFilter
+  linesOfCode: IntFilter
+  Technologies: TechnologyListRelationFilter
+  Urls: UrlListRelationFilter
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+}
+
+input EnumTagListFilter {
+  equals: [Tag!]
+  has: Tag
+  hasEvery: [Tag!]
+  hasSome: [Tag!]
+  isEmpty: Boolean
+}
+
+input TechnologyListRelationFilter {
+  every: TechnologyWhereInput
+  some: TechnologyWhereInput
+  none: TechnologyWhereInput
+}
+
+input TechnologyWhereInput {
+  id: IntFilter
   name: StringFilter
-  AND: [ItemWhereInput!]
-  OR: [ItemWhereInput!]
-  NOT: [ItemWhereInput!]
+  description: StringFilter
+  Projects: ProjectListRelationFilter
+  AND: [TechnologyWhereInput!]
+  OR: [TechnologyWhereInput!]
+  NOT: [TechnologyWhereInput!]
 }
 
-input IntFilter {
-  equals: Int
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
+input ProjectListRelationFilter {
+  every: ProjectWhereInput
+  some: ProjectWhereInput
+  none: ProjectWhereInput
 }
 
-input ItemOrderByWithRelationInput {
+input UrlListRelationFilter {
+  every: UrlWhereInput
+  some: UrlWhereInput
+  none: UrlWhereInput
+}
+
+input UrlWhereInput {
+  id: IntFilter
+  title: StringFilter
+  description: StringFilter
+  url: StringFilter
+  projectId: IntFilter
+  Project: ProjectRelationFilter
+  AND: [UrlWhereInput!]
+  OR: [UrlWhereInput!]
+  NOT: [UrlWhereInput!]
+}
+
+input ProjectRelationFilter {
+  is: ProjectWhereInput
+  isNot: ProjectWhereInput
+}
+
+input ProjectOrderByWithRelationInput {
   id: SortOrder
   createdAt: SortOrder
-  updatedAt: SortOrder
-  name: SortOrder
+  date: SortOrder
+  title: SortOrder
+  description: SortOrder
+  images: SortOrder
+  github: SortOrder
+  linesOfCode: SortOrder
+  Tags: SortOrder
+  Technologies: TechnologyOrderByRelationAggregateInput
+  Urls: UrlOrderByRelationAggregateInput
 }
 
-input ItemWhereUniqueInput {
+input TechnologyOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UrlOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProjectWhereUniqueInput {
+  id: Int!
+}
+
+enum SocialScalarFieldEnum {
+  id
+  title
+  description
+  url
+}
+
+input SocialWhereInput {
+  id: IntFilter
+  title: StringFilter
+  description: StringFilter
+  url: StringFilter
+  AND: [SocialWhereInput!]
+  OR: [SocialWhereInput!]
+  NOT: [SocialWhereInput!]
+}
+
+input SocialOrderByWithRelationInput {
+  id: SortOrder
+  title: SortOrder
+  description: SortOrder
+  url: SortOrder
+}
+
+input SocialWhereUniqueInput {
+  id: Int!
+}
+
+enum TechnologyScalarFieldEnum {
+  id
+  name
+  description
+}
+
+input TechnologyOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  description: SortOrder
+  Projects: ProjectOrderByRelationAggregateInput
+}
+
+input ProjectOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TechnologyWhereUniqueInput {
+  id: Int!
+}
+
+enum UrlScalarFieldEnum {
+  id
+  title
+  description
+  url
+  projectId
+}
+
+input UrlOrderByWithRelationInput {
+  id: SortOrder
+  title: SortOrder
+  description: SortOrder
+  url: SortOrder
+  projectId: SortOrder
+  Project: ProjectOrderByWithRelationInput
+}
+
+input UrlWhereUniqueInput {
+  id: Int!
+}
+
+enum FaqScalarFieldEnum {
+  id
+  question
+  answer
+}
+
+input FaqWhereInput {
+  id: IntFilter
+  question: StringFilter
+  answer: StringFilter
+  AND: [FaqWhereInput!]
+  OR: [FaqWhereInput!]
+  NOT: [FaqWhereInput!]
+}
+
+input FaqOrderByWithRelationInput {
+  id: SortOrder
+  question: SortOrder
+  answer: SortOrder
+}
+
+input FaqWhereUniqueInput {
+  id: Int!
+}
+
+enum StrategyScalarFieldEnum {
+  id
+  title
+  description
+}
+
+input StrategyWhereInput {
+  id: IntFilter
+  title: StringFilter
+  description: StringFilter
+  details: StrategyDetailListRelationFilter
+  AND: [StrategyWhereInput!]
+  OR: [StrategyWhereInput!]
+  NOT: [StrategyWhereInput!]
+}
+
+input StrategyDetailListRelationFilter {
+  every: StrategyDetailWhereInput
+  some: StrategyDetailWhereInput
+  none: StrategyDetailWhereInput
+}
+
+input StrategyDetailWhereInput {
+  id: IntFilter
+  strategyId: IntFilter
+  title: StringFilter
+  description: StringFilter
+  resources: ResourceListRelationFilter
+  Strategy: StrategyRelationFilter
+  AND: [StrategyDetailWhereInput!]
+  OR: [StrategyDetailWhereInput!]
+  NOT: [StrategyDetailWhereInput!]
+}
+
+input ResourceListRelationFilter {
+  every: ResourceWhereInput
+  some: ResourceWhereInput
+  none: ResourceWhereInput
+}
+
+input ResourceWhereInput {
+  id: IntFilter
+  type: StringFilter
+  title: StringFilter
+  url: StringFilter
+  strategyDetailId: IntFilter
+  StrategyDetail: StrategyDetailRelationFilter
+  AND: [ResourceWhereInput!]
+  OR: [ResourceWhereInput!]
+  NOT: [ResourceWhereInput!]
+}
+
+input StrategyDetailRelationFilter {
+  is: StrategyDetailWhereInput
+  isNot: StrategyDetailWhereInput
+}
+
+input StrategyRelationFilter {
+  is: StrategyWhereInput
+  isNot: StrategyWhereInput
+}
+
+input StrategyOrderByWithRelationInput {
+  id: SortOrder
+  title: SortOrder
+  description: SortOrder
+  details: StrategyDetailOrderByRelationAggregateInput
+}
+
+input StrategyDetailOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StrategyWhereUniqueInput {
+  id: Int!
+}
+
+enum StrategyDetailScalarFieldEnum {
+  id
+  strategyId
+  title
+  description
+}
+
+input StrategyDetailOrderByWithRelationInput {
+  id: SortOrder
+  strategyId: SortOrder
+  title: SortOrder
+  description: SortOrder
+  resources: ResourceOrderByRelationAggregateInput
+  Strategy: StrategyOrderByWithRelationInput
+}
+
+input ResourceOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StrategyDetailWhereUniqueInput {
+  id: Int!
+}
+
+enum ResourceScalarFieldEnum {
+  id
+  type
+  title
+  url
+  strategyDetailId
+}
+
+input ResourceOrderByWithRelationInput {
+  id: SortOrder
+  type: SortOrder
+  title: SortOrder
+  url: SortOrder
+  strategyDetailId: SortOrder
+  StrategyDetail: StrategyDetailOrderByWithRelationInput
+}
+
+input ResourceWhereUniqueInput {
   id: Int!
 }
 
 type Mutation {
-  createUserWithProvider(createUserWithProviderInput: CreateUserWithProviderInput!): User!
-  createUserWithCredentials(createUserWithCredentialsInput: CreateUserWithCredentialsInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(where: UserWhereUniqueInput): User!
-  createItem(createItemInput: CreateItemInput!): Item!
-  updateItem(updateItemInput: UpdateItemInput!): Item!
-  removeItem(where: ItemWhereUniqueInput!): Item!
+  createEducation(createEducationInput: CreateEducationInput!): Education!
+  updateEducation(updateEducationInput: UpdateEducationInput!): Education!
+  removeEducation(where: EducationWhereUniqueInput!): Education!
+  createExperience(createExperienceInput: CreateExperienceInput!): Experience!
+  updateExperience(updateExperienceInput: UpdateExperienceInput!): Experience!
+  removeExperience(where: ExperienceWhereUniqueInput!): Experience!
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(where: ProjectWhereUniqueInput!): Project!
+  createSocial(createSocialInput: CreateSocialInput!): Social!
+  updateSocial(updateSocialInput: UpdateSocialInput!): Social!
+  removeSocial(where: SocialWhereUniqueInput!): Social!
+  createTechnology(createTechnologyInput: CreateTechnologyInput!): Technology!
+  updateTechnology(updateTechnologyInput: UpdateTechnologyInput!): Technology!
+  removeTechnology(where: TechnologyWhereUniqueInput!): Technology!
+  createUrl(createUrlInput: CreateUrlInput!): Url!
+  updateUrl(updateUrlInput: UpdateUrlInput!): Url!
+  removeUrl(where: UrlWhereUniqueInput!): Url!
+  createFaq(createFaqInput: CreateFaqInput!): Faq!
+  updateFaq(updateFaqInput: UpdateFaqInput!): Faq!
+  removeFaq(where: FaqWhereUniqueInput!): Faq!
+  createStrategy(createStrategyInput: CreateStrategyInput!): Strategy!
+  updateStrategy(updateStrategyInput: UpdateStrategyInput!): Strategy!
+  removeStrategy(where: StrategyWhereUniqueInput!): Strategy!
+  createStrategyDetail(createStrategyDetailInput: CreateStrategyDetailInput!): StrategyDetail!
+  updateStrategyDetail(updateStrategyDetailInput: UpdateStrategyDetailInput!): StrategyDetail!
+  removeStrategyDetail(where: StrategyDetailWhereUniqueInput!): StrategyDetail!
+  createResource(createResourceInput: CreateResourceInput!): Resource!
+  updateResource(updateResourceInput: UpdateResourceInput!): Resource!
+  removeResource(where: ResourceWhereUniqueInput!): Resource!
 }
 
-input CreateUserWithProviderInput {
-  image: String
-  uid: String!
+input CreateEducationInput {
+  end: DateTime
+  school: String!
+  degree: String!
+  start: DateTime!
+  details: [String!]!
+}
+
+input UpdateEducationInput {
+  end: DateTime
+  school: String
+  degree: String
+  start: DateTime
+  details: [String!]
+  id: Int!
+}
+
+input CreateExperienceInput {
+  end: DateTime
+  title: String!
+  company: String!
+  start: DateTime!
+  details: [String!]!
+}
+
+input UpdateExperienceInput {
+  end: DateTime
+  title: String
+  company: String
+  start: DateTime
+  details: [String!]
+  id: Int!
+}
+
+input CreateProjectInput {
+  Tags: [Tag!]!
+  date: DateTime!
+  title: String!
+  description: String!
+  images: [String!]!
+  github: String!
+  linesOfCode: Int!
+}
+
+input UpdateProjectInput {
+  Tags: [Tag!]
+  date: DateTime
+  title: String
+  description: String
+  images: [String!]
+  github: String
+  linesOfCode: Int
+  id: Int!
+}
+
+input CreateSocialInput {
+  description: String
+  title: String!
+  url: String!
+}
+
+input UpdateSocialInput {
+  description: String
+  title: String
+  url: String
+  id: Int!
+}
+
+input CreateTechnologyInput {
   name: String!
-  type: AuthProviderType!
+  description: String!
 }
 
-input CreateUserWithCredentialsInput {
-  name: String!
-  email: String!
-  password: String!
-  image: String
-}
-
-input UpdateUserInput {
-  image: String
-  uid: String!
+input UpdateTechnologyInput {
   name: String
+  description: String
+  id: Int!
 }
 
-input CreateItemInput {
-  name: String!
+input CreateUrlInput {
+  projectId: Int
+  title: String!
+  description: String!
+  url: String!
 }
 
-input UpdateItemInput {
-  name: String
+input UpdateUrlInput {
+  projectId: Int
+  title: String
+  description: String
+  url: String
+  id: Int!
+}
+
+input CreateFaqInput {
+  question: String!
+  answer: String!
+}
+
+input UpdateFaqInput {
+  question: String
+  answer: String
+  id: Int!
+}
+
+input CreateStrategyInput {
+  title: String!
+  description: String!
+}
+
+input UpdateStrategyInput {
+  title: String
+  description: String
+  id: Int!
+}
+
+input CreateStrategyDetailInput {
+  strategyId: Int!
+  title: String!
+  description: String!
+}
+
+input UpdateStrategyDetailInput {
+  strategyId: Int
+  title: String
+  description: String
+  id: Int!
+}
+
+input CreateResourceInput {
+  strategyDetailId: Int
+  type: String!
+  title: String!
+  url: String!
+}
+
+input UpdateResourceInput {
+  strategyDetailId: Int
+  type: String
+  title: String
+  url: String
   id: Int!
 }

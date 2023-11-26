@@ -1,0 +1,10 @@
+pnpm entity:complete Education
+pnpm entity:complete Experience
+pnpm entity:complete Project
+pnpm entity:complete Social
+pnpm entity:complete Technology
+pnpm entity:complete Url
+pnpm entity:complete FAQ
+pnpm entity:complete Strategy
+pnpm entity:complete StrategyDetail
+pnpm entity:complete Resource
